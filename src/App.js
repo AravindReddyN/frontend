@@ -9,7 +9,7 @@ import {Toaster} from 'react-hot-toast'
 // import { userContextProvider } from '../context/userContext.js';
 
 // axios.defaults.baseURL="http://localhost:8000"
-axios.defaults.baseURL="https://backebnd.onrender.com"
+axios.defaults.baseURL="https://backend-1wi2.onrender.com"
 axios.defaults.withCredentials=true
 function App() {
   return (
