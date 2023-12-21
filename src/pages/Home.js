@@ -40,13 +40,17 @@ function Home() {
     };
 
     return (
-        <div class="container">
+       <div class="container">
         <h1>Upload Image</h1>
         <input type="file" onChange={fileSelectHandler}></input>
         <button onClick={fileUploadHandler}>Generate</button>
-        <div><img>src={imageURL} alt=""style={{
-        <h2>Output: {responseMessage}</h2>
+        {imageURL && (
+        <div>
+          <h2>Selected Image Preview</h2>
+          <img src={imageURL} alt="Selected" style={{ maxWidth: '100%', maxHeight: '300px' }} />
         </div>
+        )}
+        <h2>Output: {responseMessage}</h2>
     );
     // const [image, setImage] = useState(null);
     // const [prediction, setPrediction] = useState(null);
