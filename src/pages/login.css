@@ -4,7 +4,7 @@ body{
     margin: 0;
     padding: 0;
     /* background: linear-gradient(to right, #b873c5 0%, #37cd91 100%); */
-    background-image: url('https://picsum.photos/1920/1080');
+    background-image: url('./EnFocus-Vela-Header-V2.jpg');
     display: flex;
     align-items: center;
     /* margin-top: 10%; */
