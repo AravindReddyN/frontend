@@ -13,7 +13,7 @@ function Home() {
 
         setImage(file);
     };
-
+    
     const handlesubmit = async (e) => {
         e.preventDefault();
         try {
