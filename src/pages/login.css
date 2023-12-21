@@ -1,4 +1,4 @@
-
+/* 
 
 body{
   background: url("https://picsum.photos/1920/1080") center center fixed;
@@ -69,3 +69,57 @@ form {
     background-color: #f8f9fa; /* Bootstrap default background color */
   }
   
+ */
+body{
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    /* background: linear-gradient(to right, #b873c5 0%, #37cd91 100%); */
+    background-image: url('https://picsum.photos/1920/1080');
+    display: flex;
+    align-items: center;
+    /* margin-top: 10%; */
+    justify-content: center;
+    height: 80vh;
+}
+form {
+    background-color: transparent;
+    padding: 40px;
+    flex-shrink: 0;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+label, input {
+    display: block;
+    background-color: transparent;
+    margin-bottom: 15px;
+    margin-bottom: 10px;
+    font-size: medium;
+}
+#b1 {
+    background-color: #262827;
+    color: #fff;
+    margin-top: 10px;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+#b2 {
+    background-color: #262827           c   ;
+    color: #fff;
+    padding: 10px 15px;
+    margin-left: 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+button:hover {
+    background-color: #45a049;
+}
+h2{
+    font-family:'Times New Roman', Times, serif;
+    margin-bottom: 40px;
+    margin-top: 2px;
+}
