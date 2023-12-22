@@ -1,86 +1,85 @@
-import React, { useState } from 'react'
-// import { toast } from 'react-hot-toast'
-import axios from 'axios'
-import './Home.css'
+import React, { useState } from 'react';
+import axios from 'axios';
+// import './home.css'
 
 function Home() {
-    const [image, setImage] = useState(null);
-    const [prediction, setPrediction] = useState(null);
-    const [target, setTarget] = useState(null);
+  const [image, setImage] = useState(null);
+  const [prediction, setPrediction] = useState(null);
+  const [target, setTarget] = useState(null);
+  const [imageUrl, setImageUrl] = useState(null);
 
-    const handleImageChange = (e) => {
-        const file = e.target.files[0];
+  const handleImageChange = (e) => {
+    setImage(e.target.files[0]);
+    setImageUrl(URL.createObjectURL(e.target.files[0])); // Create URL for the selected image
+  };
 
-        setImage(file);
-    };
-    
-    const handlesubmit = async (e) => {
-        e.preventDefault();
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    try {
+      const reader = new FileReader();
+      reader.onloadend = async () => {
+        const base64data = reader.result.split(',')[1];
+
+        const requestData = {
+          image: base64data,
+          name: image.name || 'default_filename.jpg',
+        };
+
         try {
-            const reader = new FileReader();
-            reader.onloadend = () => {
-                const base64data = reader.result.split(',')[1];
+          const response = await axios.post(
+            ${process.env.REACT_APP_flaskurl}/predict,
+            requestData,
+            {
+              withCredentials: true,
+            }
+          );
 
-                const requestData = {
-                    image: base64data,
-                    name: image.name || 'default_filename.jpg',
-                };
-
-
-                axios.post("http://127.0.0.1:5000/predict",requestData, {
-                    withCredentials: true,
-                })
-                    .then((response) => {
-                        const result = response;
-                        
-                        console.log(Object.keys(result))
-                        
-                        setPrediction(result["data"]["prediction"])
-                        setTarget(result["data"]["target"])
-                        console.log('Response from server:', result);
-                    })
-                    .catch((error) => {
-                        console.error('Error:', error);
-                    });
-            };
-
-            reader.readAsDataURL(image);
+          setPrediction(response.data.prediction);
+          setTarget(response.data.target);
+          console.log('Response from server:', response);
         } catch (error) {
-            console.log(error);
+          console.error('Error:', error);
         }
+      };
+
+      reader.readAsDataURL(image);
+    } catch (error) {
+      console.log(error);
     }
-    return (
-        <div>
-            <div className='formhome'>
-            <form onSubmit={handlesubmit}>
-                <label htmlFor='image'>Upload image</label>
-                <input type='file' id="image" onChange={handleImageChange}></input>
-                <button type="submit">Submit</button>
-            </form>
-            </div>
-            {prediction ? (
-                <div className='output'>
-                    <div className='pred'>
+  };
 
-                    <h2>prediction</h2>
-                        <span>
-                        {prediction}
-                        </span>
-                    </div>
-                    <div className='targ'>
-                    <h2>target</h2>
-                        <span>
-                        {target}
-                        </span>
-                    </div>
-                </div>
-            ) : null}
+  return (
+    <div>
+      <form onSubmit={handleSubmit} className='homeform'>
+        <label htmlFor="image">Upload image</label>
+        <input type="file" id="image" onChange={handleImageChange}></input>
+        <button type="submit">Submit</button>
+      </form>
 
+      {imageUrl && (
+        <div className="image-preview">
+          <h2>Input Image</h2>
+          <img src={imageUrl} alt="Input" style={{ maxWidth: '100%', maxHeight: '300px' }} />
         </div>
+      )}
 
-
-
-    )
+      {prediction ? (
+        <div className="output">
+          <h2>Prediction</h2>
+          <span>
+          {prediction}
+          </span>
+          
+          <h2>Target</h2>
+          <span>
+          {target}
+          </span>
+          
+        </div>
+      ) : null}
+    </div>
+  );
 }
 
-export default Home
+export default Home;
