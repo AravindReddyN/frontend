@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 // import './home.css'
-
+ 
 function Home() {
   const [image, setImage] = useState(null);
   const [prediction, setPrediction] = useState(null);
