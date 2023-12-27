@@ -28,7 +28,7 @@ function Home() {
 
         try {
           const response = await axios.post(
-            ${process.env.REACT_APP_flaskurl}/predict,
+            '${process.env.REACT_APP_flaskurl}/predict',
             requestData,
             {
               withCredentials: true,
